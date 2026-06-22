@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Shringar AI — Delhi Bridal Beauty</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --night:#09080E;
+  --night2:#111019;
+  --night3:#1A1826;
+  --plum:#2A1B3D;
+  --violet:#6B3FA0;
+  --violet-lt:#9B6DD1;
+  --rose:#C4527A;
+  --rose-lt:#F2A0BD;
+  --gold:#D4A843;
+  --gold-lt:#F5D98A;
+  --sage:#4E7C59;
+  --sage-lt:#A8D4B0;
+  --cream:#FBF6F0;
+  --cream2:#F2EBE2;
+  --muted:#7A6E8A;
+  --muted-lt:#B8ADD0;
+  --border:rgba(180,140,200,0.10);
+  --border-md:rgba(180,140,200,0.20);
+  --border-hi:rgba(180,140,200,0.35);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Outfit',system-ui,sans-serif;
+  --glow:0 0 60px rgba(107,63,160,0.22);
+  --glow-rose:0 0 40px rgba(196,82,122,0.18);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--night);color:var(--cream);line-height:1.65;font-size:15px;overflow-x:hidden;min-height:100vh}
+button,a{font-family:var(--sans);cursor:pointer;text-decoration:none;border:none;background:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* ═══ PAGE SYSTEM ═══ */
+.page{display:none;min-height:100vh;padding-top:64px}
+.page.active{display:block;animation:pageIn 0.38s ease forwards}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ NAV ═══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:64px;
+  background:rgba(9,8,14,0.88);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-family:var(--serif);font-size:1.55rem;color:var(--cream);letter-spacing:0.01em;cursor:pointer;display:flex;align-items:center;gap:0.5rem}
+.nav-logo em{font-style:italic;color:var(--violet-lt)}
+.nav-logo .badge{font-family:var(--sans);font-size:0.5rem;letter-spacing:0.16em;text-transform:uppercase;background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;padding:0.15rem 0.5rem;border-radius:20px;font-weight:700}
+.nav-links{display:flex;align-items:center;gap:0.15rem}
+.nl{padding:0.5rem 1.05rem;font-size:0.73rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted-lt);font-weight:500;transition:color 0.2s;border-radius:6px}
+.nl:hover{color:var(--cream)}
+.nl.on{color:var(--cream);background:rgba(107,63,160,0.14)}
+.nav-cta{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;padding:0.52rem 1.4rem;border-radius:22px;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;font-weight:700;transition:all 0.22s;box-shadow:0 0 22px rgba(107,63,160,0.35)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 0 38px rgba(107,63,160,0.55)}
+
+/* ═══ BTN SYSTEM ═══ */
+.btn-primary{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;padding:0.88rem 2.4rem;border-radius:32px;font-size:0.82rem;letter-spacing:0.07em;text-transform:uppercase;font-weight:700;transition:all 0.28s;box-shadow:0 0 32px rgba(107,63,160,0.45);display:inline-flex;align-items:center;gap:0.5rem}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 48px rgba(107,63,160,0.65)}
+.btn-outline{color:var(--muted-lt);padding:0.88rem 2.1rem;border-radius:32px;font-size:0.82rem;letter-spacing:0.07em;text-transform:uppercase;font-weight:500;border:1px solid var(--border-md);transition:all 0.22s;display:inline-flex;align-items:center;gap:0.5rem}
+.btn-outline:hover{border-color:var(--violet-lt);color:var(--cream)}
+.btn-sm{padding:0.55rem 1.3rem;font-size:0.72rem;border-radius:22px}
+
+/* ═══ TOAST ═══ */
+#toast{
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);
+  background:linear-gradient(135deg,var(--plum),var(--night3));
+  border:1px solid rgba(107,63,160,0.5);border-radius:14px;
+  padding:1.1rem 2rem;z-index:9999;
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
+  transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  text-align:center;min-width:320px;
+}
+#toast.show{transform:translateX(-50%) translateY(0)}
+#toast .t-icon{font-size:1.8rem;margin-bottom:0.4rem}
+#toast h4{font-family:var(--serif);font-size:1.15rem;color:var(--cream);font-weight:500;margin-bottom:0.2rem}
+#toast p{font-size:0.75rem;color:var(--muted-lt)}
+
+/* ═══ SECTION TOKENS ═══ */
+.wrap{max-width:1200px;margin:0 auto;padding:0 3rem}
+.s-tag{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);font-weight:600;display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem}
+.s-tag::before{content:'✦';font-size:0.4rem}
+.s-h2{font-family:var(--serif);font-size:2.8rem;font-weight:400;color:var(--cream);line-height:1.08;margin-bottom:0.6rem}
+.s-h2 em{font-style:italic;color:var(--violet-lt)}
+.s-sub{font-size:0.88rem;color:var(--muted);line-height:1.82;font-weight:300;max-width:520px}
+
+/* ═══════════════════════════════════════════════════
+   PAGE 1 — HOME
+═══════════════════════════════════════════════════ */
+/* HERO */
+.hero{min-height:calc(100vh - 64px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:5rem 2rem 3rem;position:relative;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(107,63,160,0.18),transparent 70%)}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(transparent,var(--night));pointer-events:none}
+.hero-orbs{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(90px)}
+.orb1{width:560px;height:560px;background:radial-gradient(circle,rgba(107,63,160,0.28),transparent);top:-120px;left:-120px;animation:breathe 8s ease-in-out infinite}
+.orb2{width:440px;height:440px;background:radial-gradient(circle,rgba(196,82,122,0.18),transparent);bottom:-80px;right:-100px;animation:breathe 7s ease-in-out infinite 3.5s}
+.orb3{width:320px;height:320px;background:radial-gradient(circle,rgba(212,168,67,0.12),transparent);top:45%;left:55%;animation:breathe 9s ease-in-out infinite 2s}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.65rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:2.2rem;border:1px solid rgba(212,168,67,0.28);padding:0.42rem 1.1rem;border-radius:22px;background:rgba(212,168,67,0.06);position:relative;z-index:2}
+.hero-eyebrow .pulse{width:7px;height:7px;border-radius:50%;background:var(--rose);animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.hero-h1{font-family:var(--serif);font-size:clamp(3.2rem,7.5vw,6rem);line-height:1.02;color:var(--cream);font-weight:300;margin-bottom:1.6rem;max-width:860px;position:relative;z-index:2}
+.hero-h1 em{font-style:italic;color:transparent;background:linear-gradient(135deg,var(--violet-lt) 0%,var(--rose-lt) 50%,var(--gold-lt) 100%);-webkit-background-clip:text;background-clip:text}
+.hero-sub{font-size:1rem;color:var(--muted);max-width:520px;margin:0 auto 3rem;line-height:1.85;font-weight:300;position:relative;z-index:2}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:4rem;position:relative;z-index:2}
+
+/* HERO DEMO */
+.hero-demo{background:rgba(26,24,38,0.72);border:1px solid var(--border-md);border-radius:20px;padding:2rem 2.5rem;max-width:700px;width:100%;margin:0 auto 2rem;backdrop-filter:blur(24px);box-shadow:var(--glow);position:relative;z-index:2}
+.demo-label{font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--violet-lt);font-weight:700;margin-bottom:0.7rem;display:flex;align-items:center;gap:0.5rem}
+.demo-row{display:flex;gap:0.75rem;align-items:flex-end}
+.demo-ta{flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--border-md);border-radius:12px;padding:0.85rem 1.1rem;color:var(--cream);font-family:var(--sans);font-size:0.88rem;resize:none;outline:none;line-height:1.6;font-weight:300;transition:border-color 0.22s}
+.demo-ta:focus{border-color:var(--violet-lt)}
+.demo-ta::placeholder{color:var(--muted)}
+.demo-btn{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;padding:0.78rem 1.6rem;border-radius:12px;font-size:0.78rem;font-weight:700;letter-spacing:0.04em;transition:all 0.22s;flex-shrink:0;white-space:nowrap}
+.demo-btn:hover{opacity:0.86;transform:translateY(-1px)}
+.demo-result{margin-top:1.2rem;padding:1.25rem;background:rgba(107,63,160,0.08);border:1px solid rgba(107,63,160,0.22);border-radius:12px;font-size:0.85rem;color:var(--cream2);line-height:1.82;display:none;font-weight:300}
+.demo-result.show{display:block;animation:pageIn 0.35s ease}
+.typing-cursor{display:inline-block;width:2px;height:13px;background:var(--violet-lt);animation:blink 0.8s infinite;vertical-align:middle;margin-left:2px}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:4px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* IMPACT STRIP */
+.impact-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--night2)}
+.ic{padding:2.2rem;text-align:center;border-right:1px solid var(--border)}
+.ic:last-child{border-right:none}
+.ic-num{font-family:var(--serif);font-size:2.6rem;font-weight:400;background:linear-gradient(135deg,var(--violet-lt),var(--rose-lt));-webkit-background-clip:text;background-clip:text;color:transparent;display:block;line-height:1;margin-bottom:0.3rem}
+.ic-lbl{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);font-weight:400}
+
+/* FEATURES GRID */
+.feat-section{padding:6rem 3rem;max-width:1200px;margin:0 auto}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:2.8rem}
+.feat-card{background:var(--night2);border:1px solid var(--border);border-radius:16px;padding:2rem;transition:all 0.3s;position:relative;overflow:hidden}
+.feat-card::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,rgba(107,63,160,0.14),rgba(196,82,122,0.08));opacity:0;transition:opacity 0.3s}
+.feat-card:hover::before{opacity:1}
+.feat-card:hover{border-color:rgba(107,63,160,0.38);transform:translateY(-5px);box-shadow:var(--glow)}
+.feat-icon{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.3rem}
+.fi-v{background:linear-gradient(135deg,rgba(107,63,160,0.28),rgba(196,82,122,0.16))}
+.fi-g{background:linear-gradient(135deg,rgba(78,124,89,0.28),rgba(168,212,176,0.16))}
+.fi-o{background:linear-gradient(135deg,rgba(212,168,67,0.28),rgba(245,217,138,0.16))}
+.feat-card h3{font-family:var(--serif);font-size:1.18rem;color:var(--cream);margin-bottom:0.5rem;font-weight:500}
+.feat-card p{font-size:0.78rem;color:var(--muted);line-height:1.75;font-weight:300}
+.feat-pill{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.56rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0.65rem;border-radius:22px;font-weight:700;margin-top:1.1rem}
+.fp-v{background:rgba(107,63,160,0.2);color:var(--violet-lt)}
+.fp-g{background:rgba(78,124,89,0.2);color:var(--sage-lt)}
+.fp-o{background:rgba(212,168,67,0.2);color:var(--gold-lt)}
+
+/* AI CHAT PREVIEW on HOME */
+.chat-section{background:linear-gradient(180deg,var(--night2),var(--night));padding:6rem 3rem;border-top:1px solid var(--border)}
+.chat-layout{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.chat-box{background:var(--night3);border:1px solid var(--border-md);border-radius:18px;overflow:hidden;box-shadow:var(--glow)}
+.chat-hdr{padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.9rem;background:rgba(107,63,160,0.1)}
+.chat-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--rose));display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
+.chat-hname{font-size:0.86rem;color:var(--cream);font-weight:500}
+.chat-hsub{font-size:0.63rem;color:var(--sage-lt)}
+.chat-live{width:8px;height:8px;border-radius:50%;background:#4ADE80;margin-left:auto;box-shadow:0 0 8px rgba(74,222,128,0.6)}
+.chat-msgs{height:290px;overflow-y:auto;padding:1.2rem 1.4rem;display:flex;flex-direction:column;gap:0.8rem;scroll-behavior:smooth}
+.chat-msgs::-webkit-scrollbar{width:4px}
+.chat-msgs::-webkit-scrollbar-track{background:transparent}
+.chat-msgs::-webkit-scrollbar-thumb{background:rgba(107,63,160,0.3);border-radius:2px}
+.msg{max-width:82%;font-size:0.82rem;line-height:1.65;padding:0.75rem 1rem;border-radius:14px;font-weight:300}
+.msg-ai{background:rgba(107,63,160,0.12);border:1px solid rgba(107,63,160,0.2);color:var(--cream2);border-radius:14px 14px 14px 4px}
+.msg-user{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;margin-left:auto;border-radius:14px 14px 4px 14px}
+.chat-inp-row{display:flex;gap:0;border-top:1px solid var(--border)}
+.chat-inp{flex:1;background:transparent;border:none;padding:1rem 1.3rem;color:var(--cream);font-family:var(--sans);font-size:0.85rem;outline:none}
+.chat-inp::placeholder{color:var(--muted)}
+.chat-send{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;padding:0.9rem 1.4rem;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;transition:opacity 0.2s}
+.chat-send:hover{opacity:0.85}
+.qp-row{display:flex;flex-direction:column;gap:0.65rem;margin-top:1.5rem}
+.qp{padding:0.65rem 1rem;border:1px solid var(--border-md);border-radius:10px;font-size:0.78rem;color:var(--muted-lt);text-align:left;transition:all 0.2s;background:rgba(255,255,255,0.02)}
+.qp:hover{border-color:var(--violet-lt);color:var(--cream);background:rgba(107,63,160,0.08)}
+
+/* TRUST BAR */
+.trust-bar{display:flex;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--night2)}
+.tb-item{flex:1;display:flex;align-items:center;gap:1rem;padding:1.5rem 2rem;border-right:1px solid var(--border)}
+.tb-item:last-child{border-right:none}
+.tb-icon{font-size:1.3rem;flex-shrink:0}
+.tb-t{font-size:0.82rem;color:var(--cream);font-weight:500;margin-bottom:0.1rem}
+.tb-s{font-size:0.68rem;color:var(--muted);font-weight:300}
+
+/* FOOTER */
+footer{background:var(--night2);border-top:1px solid var(--border);padding:4rem 3rem 2rem}
+.ft-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+.ft-logo{font-family:var(--serif);font-size:1.5rem;color:var(--cream);margin-bottom:0.8rem;display:block}
+.ft-logo em{font-style:italic;color:var(--violet-lt)}
+.ft-about{font-size:0.78rem;color:var(--muted);line-height:1.75;font-weight:300}
+.ft-col h5{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted-lt);font-weight:600;margin-bottom:1rem}
+.ft-col a{display:block;font-size:0.78rem;color:var(--muted);font-weight:300;margin-bottom:0.55rem;transition:color 0.2s}
+.ft-col a:hover{color:var(--cream)}
+.ft-bottom{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding-top:1.5rem;border-top:1px solid var(--border)}
+.ft-copy{font-size:0.7rem;color:var(--muted);font-weight:300}
+
+/* ═══════════════════════════════════════════════════
+   PAGE 2 — PACKAGES
+═══════════════════════════════════════════════════ */
+.pkg-hero{padding:5rem 3rem 3.5rem;background:radial-gradient(ellipse at 50% 0%,rgba(107,63,160,0.15),transparent 65%);border-bottom:1px solid var(--border);text-align:center}
+.pkg-hero .s-h2{font-size:clamp(2.4rem,5vw,4rem)}
+
+/* SORT / FILTER ROW */
+.pkg-filter-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding:2.2rem 3rem 1rem;max-width:1200px;margin:0 auto}
+.sort-label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.sort-chips{display:flex;gap:0.5rem;flex-wrap:wrap}
+.sc{padding:0.42rem 1rem;border-radius:22px;font-size:0.73rem;color:var(--muted-lt);border:1px solid var(--border-md);background:transparent;transition:all 0.2s;cursor:pointer;letter-spacing:0.04em}
+.sc.on{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;border-color:transparent}
+.sc:hover:not(.on){border-color:var(--violet-lt);color:var(--cream)}
+.price-range-wrap{display:flex;align-items:center;gap:0.8rem}
+.price-range-lbl{font-size:0.7rem;color:var(--muted)}
+.price-range{width:140px;accent-color:var(--violet-lt)}
+.price-val{font-size:0.78rem;color:var(--cream);font-weight:500;min-width:60px}
+
+/* AUDIENCE SORT TABS */
+.audience-tabs{display:flex;gap:0.65rem;padding:0.6rem 3rem 0;max-width:1200px;margin:0 auto}
+.at{padding:0.58rem 1.35rem;border-radius:10px;font-size:0.76rem;color:var(--muted-lt);border:1px solid var(--border);background:var(--night2);transition:all 0.22s;cursor:pointer;font-weight:500;display:flex;align-items:center;gap:0.45rem}
+.at.on{background:rgba(107,63,160,0.2);border-color:rgba(107,63,160,0.4);color:var(--cream)}
+.at:hover:not(.on){border-color:var(--border-hi);color:var(--cream)}
+
+/* PKG CARDS */
+.pkg-wrap{max-width:1200px;margin:0 auto;padding:2rem 3rem 4rem}
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-bottom:2rem}
+.pkg-grid-wide{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;margin-bottom:2rem}
+
+.pkg-card{background:var(--night2);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.3s;position:relative;display:flex;flex-direction:column}
+.pkg-card.hidden{display:none}
+.pkg-card.featured{border-color:rgba(107,63,160,0.45);box-shadow:0 0 40px rgba(107,63,160,0.18)}
+.pkg-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.45),0 0 40px rgba(107,63,160,0.15)}
+.pkg-glow-bar{height:2px;background:linear-gradient(90deg,transparent,var(--violet-lt),var(--rose-lt),transparent)}
+.pkg-badge{display:inline-flex;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;padding:0.22rem 0.7rem;border-radius:20px;margin-bottom:0.8rem}
+.pb-essentials{background:rgba(78,124,89,0.2);color:var(--sage-lt)}
+.pb-popular{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff}
+.pb-premium{background:rgba(212,168,67,0.2);color:var(--gold-lt)}
+.pb-couple{background:rgba(196,82,122,0.2);color:var(--rose-lt)}
+.pb-men{background:rgba(107,63,160,0.2);color:var(--violet-lt)}
+.pb-eco{background:rgba(78,124,89,0.2);color:var(--sage-lt)}
+.pb-luxury{background:rgba(212,168,67,0.3);color:var(--gold-lt)}
+.pkg-top{padding:1.6rem 1.8rem 1.2rem}
+.pkg-name{font-family:var(--serif);font-size:1.65rem;color:var(--cream);font-weight:400;margin-bottom:0.3rem;line-height:1.1}
+.pkg-tagline{font-size:0.78rem;color:var(--muted);line-height:1.65;font-weight:300;margin-bottom:1.1rem}
+.pkg-price-row{display:flex;align-items:baseline;gap:0.4rem}
+.pkg-amt{font-family:var(--serif);font-size:2rem;font-weight:500;color:var(--cream)}
+.pkg-unit{font-size:0.68rem;color:var(--muted);font-weight:300}
+.pkg-body{padding:0 1.8rem 1.8rem;flex:1;display:flex;flex-direction:column}
+.pkg-divider{height:1px;background:var(--border);margin:1rem 0 1.2rem}
+.pkg-feat{display:flex;align-items:flex-start;gap:0.7rem;font-size:0.78rem;color:var(--muted-lt);margin-bottom:0.55rem;font-weight:300}
+.feat-check{color:var(--violet-lt);font-size:0.85rem;flex-shrink:0;margin-top:1px;font-weight:600}
+.pkg-book{margin-top:auto;padding-top:1.4rem;display:flex;flex-direction:column;gap:0.7rem}
+.pkg-btn-fill{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;padding:0.85rem;border-radius:12px;font-size:0.78rem;letter-spacing:0.07em;text-transform:uppercase;font-weight:700;transition:all 0.25s;text-align:center;display:block}
+.pkg-btn-fill:hover{opacity:0.88;transform:translateY(-2px)}
+.pkg-btn-out{border:1px solid var(--border-md);color:var(--muted-lt);padding:0.85rem;border-radius:12px;font-size:0.78rem;letter-spacing:0.07em;text-transform:uppercase;font-weight:600;transition:all 0.25s;text-align:center;display:block}
+.pkg-btn-out:hover{border-color:var(--violet-lt);color:var(--cream)}
+.pkg-btn-add{border:1px solid rgba(212,168,67,0.35);color:var(--gold-lt);padding:0.85rem;border-radius:12px;font-size:0.78rem;letter-spacing:0.07em;text-transform:uppercase;font-weight:600;transition:all 0.25s;text-align:center;display:block}
+.pkg-btn-add:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ADDON GRID */
+.addon-section{background:var(--night2);border-top:1px solid var(--border);padding:4rem 3rem}
+.addon-wrap{max-width:1200px;margin:0 auto}
+.addon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.addon-card{background:var(--night);border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.6rem;transition:all 0.25s}
+.addon-card:hover{border-color:rgba(107,63,160,0.32);transform:translateY(-3px)}
+.addon-icon{font-size:1.8rem;margin-bottom:0.9rem}
+.addon-card h4{font-family:var(--serif);font-size:1.05rem;color:var(--cream);font-weight:500;margin-bottom:0.35rem}
+.addon-card p{font-size:0.76rem;color:var(--muted);line-height:1.65;font-weight:300;margin-bottom:0.7rem}
+.addon-p{font-size:0.82rem;color:var(--violet-lt);font-weight:600}
+
+/* ═══════════════════════════════════════════════════
+   PAGE 3 — ARTISTS
+═══════════════════════════════════════════════════ */
+.artists-hero{padding:5rem 3rem 3.5rem;background:radial-gradient(ellipse at 30% 0%,rgba(107,63,160,0.14),transparent 60%);border-bottom:1px solid var(--border)}
+.artist-filter-bar{display:flex;gap:0.5rem;flex-wrap:wrap;padding:2rem 3rem 0;max-width:1200px;margin:0 auto}
+.fc{padding:0.42rem 1rem;border-radius:22px;font-size:0.72rem;color:var(--muted-lt);border:1px solid var(--border-md);background:transparent;transition:all 0.2s;cursor:pointer;letter-spacing:0.04em}
+.fc:hover,.fc.on{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;border-color:transparent}
+.artist-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.4rem;max-width:1200px;margin:2rem auto 0;padding:0 3rem 4rem}
+.acard{background:var(--night2);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all 0.3s;cursor:pointer}
+.acard:hover{transform:translateY(-5px);border-color:rgba(107,63,160,0.35);box-shadow:var(--glow)}
+.ac-img{height:170px;display:flex;align-items:center;justify-content:center;font-size:3.2rem;position:relative}
+.ac-pill{position:absolute;top:10px;left:10px;font-size:0.56rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;padding:0.22rem 0.68rem;border-radius:22px}
+.pill-v{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff}
+.pill-g{background:rgba(212,168,67,0.92);color:#1C1410}
+.ac-ai{position:absolute;top:10px;right:10px;background:rgba(9,8,14,0.72);border:1px solid rgba(107,63,160,0.5);border-radius:22px;padding:0.2rem 0.65rem;font-size:0.56rem;color:var(--violet-lt);letter-spacing:0.08em;backdrop-filter:blur(10px)}
+.ac-body{padding:1.1rem 1.3rem 1.4rem}
+.ac-name{font-family:var(--serif);font-size:1.1rem;color:var(--cream);font-weight:500;margin-bottom:0.15rem}
+.ac-loc{font-size:0.68rem;color:var(--muted);margin-bottom:0.7rem}
+.ac-tags{display:flex;gap:0.35rem;flex-wrap:wrap;margin-bottom:0.85rem}
+.ac-tag{font-size:0.58rem;padding:0.18rem 0.58rem;background:rgba(107,63,160,0.15);color:var(--violet-lt);border-radius:22px;font-weight:600}
+.ac-foot{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.85rem}
+.ac-price{font-size:0.82rem;color:var(--cream);font-weight:600}
+.ac-price small{font-size:0.63rem;color:var(--muted);font-weight:300}
+.ac-stars{font-size:0.7rem;color:var(--gold)}
+.ac-cnt{font-size:0.6rem;color:var(--muted)}
+.ac-book{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;padding:0.65rem;border-radius:9px;font-size:0.72rem;font-weight:700;letter-spacing:0.05em;text-align:center;display:block;transition:opacity 0.2s}
+.ac-book:hover{opacity:0.85}
+
+/* ═══════════════════════════════════════════════════
+   PAGE 4 — CART (Book Now)
+═══════════════════════════════════════════════════ */
+.cart-page{max-width:1200px;margin:0 auto;padding:3rem 3rem 5rem}
+.cart-layout{display:grid;grid-template-columns:1fr 380px;gap:2.5rem;align-items:start}
+.cart-left h2{font-family:var(--serif);font-size:2rem;font-weight:400;margin-bottom:0.4rem}
+.cart-left p{font-size:0.82rem;color:var(--muted);margin-bottom:2rem}
+.cart-items{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem}
+.cart-item{background:var(--night2);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1.5rem;display:flex;align-items:center;gap:1.2rem;transition:border-color 0.2s}
+.ci-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;background:rgba(107,63,160,0.15)}
+.ci-info{flex:1}
+.ci-name{font-size:0.92rem;color:var(--cream);font-weight:500;margin-bottom:0.15rem}
+.ci-desc{font-size:0.72rem;color:var(--muted);font-weight:300}
+.ci-price{font-size:1rem;color:var(--cream);font-weight:600;flex-shrink:0}
+.ci-remove{color:var(--muted);font-size:1.1rem;transition:color 0.2s;flex-shrink:0;padding:0.3rem}
+.ci-remove:hover{color:var(--rose)}
+.cart-empty{text-align:center;padding:4rem 2rem;color:var(--muted)}
+.cart-empty .ce-icon{font-size:3rem;margin-bottom:1rem;opacity:0.4}
+.cart-empty p{font-size:0.88rem}
+
+/* CART SUMMARY CARD */
+.cart-summary{background:var(--night2);border:1px solid var(--border-md);border-radius:18px;padding:2rem;position:sticky;top:88px}
+.cs-title{font-family:var(--serif);font-size:1.4rem;color:var(--cream);font-weight:400;margin-bottom:1.5rem}
+.cs-rows{display:flex;flex-direction:column;gap:0.65rem;margin-bottom:1.2rem}
+.cs-row{display:flex;justify-content:space-between;font-size:0.8rem;color:var(--muted-lt)}
+.cs-row.total{font-size:1rem;color:var(--cream);font-weight:600;padding-top:0.8rem;border-top:1px solid var(--border);margin-top:0.4rem}
+.cs-row.deposit{color:var(--violet-lt);font-weight:600}
+.cs-book-now{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;padding:1.1rem;border-radius:14px;font-size:0.84rem;letter-spacing:0.07em;text-transform:uppercase;font-weight:700;width:100%;transition:all 0.25s;box-shadow:0 0 28px rgba(107,63,160,0.4);display:block;text-align:center;margin-bottom:0.8rem}
+.cs-book-now:hover{transform:translateY(-2px);box-shadow:0 8px 42px rgba(107,63,160,0.6)}
+.cs-note{font-size:0.68rem;color:var(--muted);line-height:1.65;text-align:center}
+.cs-secure{display:flex;align-items:center;justify-content:center;gap:0.4rem;font-size:0.65rem;color:var(--muted);margin-top:0.8rem}
+
+/* ═══════════════════════════════════════════════════
+   PAGE 5 — BOOKING FLOW
+═══════════════════════════════════════════════════ */
+.booking-hero{padding:4rem 3rem 3rem;background:radial-gradient(ellipse at 50% 0%,rgba(196,82,122,0.12),transparent 60%);border-bottom:1px solid var(--border);text-align:center}
+.booking-layout{max-width:1200px;margin:0 auto;padding:3rem 3rem 5rem;display:grid;grid-template-columns:1fr 340px;gap:2.5rem;align-items:start}
+
+/* PROGRESS STEPS */
+.progress-track{display:flex;align-items:center;gap:0;background:var(--night2);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:2.5rem}
+.prog-step{flex:1;display:flex;align-items:center;gap:0.7rem;padding:1.1rem 1.4rem;font-size:0.75rem;font-weight:500;color:var(--muted-lt);border-right:1px solid var(--border);transition:all 0.3s;cursor:pointer}
+.prog-step:last-child{border-right:none}
+.prog-step.on{background:rgba(107,63,160,0.14);color:var(--cream)}
+.prog-step.done{color:var(--sage-lt)}
+.prog-num{width:28px;height:28px;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:0.7rem;flex-shrink:0;font-weight:700;transition:all 0.3s}
+.prog-step.on .prog-num{background:linear-gradient(135deg,var(--violet),var(--rose));border-color:transparent;color:#fff}
+.prog-step.done .prog-num{background:rgba(78,124,89,0.3);border-color:var(--sage-lt)}
+.prog-txt{line-height:1.25}
+.prog-label{font-size:0.74rem;font-weight:600;display:block}
+.prog-sub{font-size:0.6rem;font-weight:300;color:var(--muted);display:block;margin-top:0.1rem}
+
+/* BOOKING STEPS */
+.bf{display:none;animation:pageIn 0.3s ease}
+.bf.show{display:block}
+.fs-title{font-family:var(--serif);font-size:1.35rem;color:var(--cream);font-weight:400;margin-bottom:1.3rem}
+.svc-list{display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.5rem}
+.svc-item{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;background:var(--night2);border:1px solid var(--border);border-radius:13px;cursor:pointer;transition:all 0.22s}
+.svc-item:hover{border-color:var(--border-hi)}
+.svc-item.sel{border-color:var(--violet-lt);background:rgba(107,63,160,0.1)}
+.svc-l{display:flex;align-items:center;gap:1rem}
+.svc-icon{font-size:1.4rem}
+.svc-n{font-size:0.88rem;color:var(--cream);font-weight:500;margin-bottom:0.1rem}
+.svc-d{font-size:0.7rem;color:var(--muted);font-weight:300}
+.svc-p{font-size:0.9rem;color:var(--cream);font-weight:600}
+.svc-dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--border-md);display:flex;align-items:center;justify-content:center;font-size:0.7rem;transition:all 0.22s;color:transparent}
+.svc-item.sel .svc-dot{background:linear-gradient(135deg,var(--violet),var(--rose));border-color:transparent;color:#fff}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.1rem}
+.fg.full{grid-template-columns:1fr}
+.f-lbl{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:0.45rem;display:block}
+input[type="text"],input[type="email"],input[type="tel"],input[type="date"],select,textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border-md);border-radius:10px;padding:0.85rem 1rem;color:var(--cream);font-family:var(--sans);font-size:0.86rem;outline:none;transition:border-color 0.22s;font-weight:300}
+input:focus,select:focus,textarea:focus{border-color:var(--violet-lt)}
+select{appearance:none;cursor:pointer}
+textarea{resize:vertical;min-height:100px;line-height:1.65}
+input::placeholder,textarea::placeholder{color:var(--muted)}
+select option{background:var(--night2);color:var(--cream)}
+
+/* TIME SLOTS */
+.slot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem;margin-top:0.5rem}
+.slot{padding:0.65rem;border-radius:9px;font-size:0.78rem;border:1px solid var(--border-md);color:var(--muted-lt);transition:all 0.2s;text-align:center}
+.slot:hover:not(.off){border-color:var(--violet-lt);color:var(--cream)}
+.slot.sel{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;border-color:transparent}
+.slot.off{opacity:0.35;cursor:not-allowed}
+
+/* PAYMENT STEP */
+.payment-opts{display:flex;flex-direction:column;gap:0.8rem;margin-bottom:1.5rem}
+.pay-opt{display:flex;align-items:center;gap:1.2rem;padding:1.1rem 1.4rem;border:1px solid var(--border);border-radius:13px;cursor:pointer;transition:all 0.22s;background:var(--night2)}
+.pay-opt:hover{border-color:var(--border-hi)}
+.pay-opt.sel{border-color:var(--violet-lt);background:rgba(107,63,160,0.1)}
+.pay-icon{font-size:1.6rem;flex-shrink:0;width:44px;text-align:center}
+.pay-name{font-size:0.88rem;color:var(--cream);font-weight:500;margin-bottom:0.1rem}
+.pay-desc{font-size:0.7rem;color:var(--muted);font-weight:300}
+.pay-dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--border-md);margin-left:auto;flex-shrink:0;transition:all 0.22s;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:transparent}
+.pay-opt.sel .pay-dot{background:linear-gradient(135deg,var(--violet),var(--rose));border-color:transparent;color:#fff}
+.upi-input-row{display:grid;grid-template-columns:1fr auto;gap:0.7rem;margin-top:0.8rem;display:none}
+.upi-input-row.show{display:grid}
+.verify-btn{background:rgba(107,63,160,0.2);color:var(--violet-lt);border:1px solid rgba(107,63,160,0.35);padding:0.85rem 1.2rem;border-radius:10px;font-size:0.78rem;font-weight:600;transition:all 0.2s;white-space:nowrap}
+.verify-btn:hover{background:rgba(107,63,160,0.35)}
+
+/* BOOKING SUMMARY */
+.sum-card{background:var(--night2);border:1px solid var(--border-md);border-radius:18px;padding:2rem;position:sticky;top:88px}
+.sum-h{font-family:var(--serif);font-size:1.3rem;color:var(--cream);font-weight:400;margin-bottom:1.4rem}
+.sum-artist-row{display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(107,63,160,0.08);border-radius:12px;margin-bottom:1.4rem}
+.sum-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--rose));display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;flex-shrink:0}
+.sum-aname{font-size:0.9rem;color:var(--cream);font-weight:500}
+.sum-aspec{font-size:0.68rem;color:var(--muted);font-weight:300}
+.sum-rows{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem}
+.sum-row{display:flex;justify-content:space-between;font-size:0.78rem;color:var(--muted-lt);line-height:1.5}
+.sum-total{font-size:0.96rem;color:var(--cream);font-weight:600;padding-top:0.7rem;border-top:1px solid var(--border);margin-top:0.3rem}
+.sum-dep{color:var(--violet-lt);font-weight:600}
+.sum-cta{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;padding:1.05rem;border-radius:12px;font-size:0.8rem;letter-spacing:0.07em;text-transform:uppercase;font-weight:700;width:100%;transition:all 0.25s;box-shadow:0 0 24px rgba(107,63,160,0.35);margin-bottom:0.8rem}
+.sum-cta:hover{transform:translateY(-2px);box-shadow:0 8px 38px rgba(107,63,160,0.55)}
+.sum-note{font-size:0.67rem;color:var(--muted);line-height:1.7;text-align:center}
+
+/* Step nav btns */
+.step-nav{display:flex;gap:0.8rem;margin-top:1.8rem}
+.step-nav .btn-outline{flex-shrink:0}
+.step-nav .btn-primary{flex:1;justify-content:center;padding:0.9rem 1.5rem;border-radius:12px}
+
+/* ═══════════════════════════════════════════════════
+   PAGE 6 — CONFIRMATION
+═══════════════════════════════════════════════════ */
+.confirm-page{min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;padding:3rem}
+.confirm-card{background:var(--night2);border:1px solid rgba(107,63,160,0.35);border-radius:24px;padding:3.5rem;max-width:540px;width:100%;text-align:center;box-shadow:0 0 80px rgba(107,63,160,0.2)}
+.confirm-icon{font-size:3.8rem;margin-bottom:1.2rem;animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1)}
+@keyframes popIn{from{transform:scale(0.5);opacity:0}to{transform:scale(1);opacity:1}}
+.confirm-card h2{font-family:var(--serif);font-size:2.2rem;font-weight:400;color:var(--cream);margin-bottom:0.6rem}
+.confirm-card p{font-size:0.85rem;color:var(--muted);line-height:1.8;margin-bottom:1.8rem}
+.confirm-ref{background:rgba(107,63,160,0.1);border:1px solid rgba(107,63,160,0.25);border-radius:12px;padding:1rem 1.5rem;margin-bottom:1.8rem}
+.ref-lbl{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem}
+.ref-val{font-size:1.1rem;color:var(--violet-lt);font-weight:600;font-family:var(--serif)}
+.confirm-actions{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap}
+
+</style>
+</head>
+<body>
+
+<!-- ═══ TOAST ═══ -->
+<div id="toast">
+  <div class="t-icon">🎉</div>
+  <h4>Booking Confirmed!</h4>
+  <p>Check your email for your booking details.</p>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-logo" onclick="go('home')">Shrin<em>gar</em> <span class="badge">AI</span></div>
+  <div class="nav-links">
+    <button class="nl on" id="nl-home" onclick="go('home')">Home</button>
+    <button class="nl" id="nl-packages" onclick="go('packages')">Packages</button>
+    <button class="nl" id="nl-artists" onclick="go('artists')">Artists</button>
+    <button class="nl" id="nl-cart" onclick="go('cart')">🛒 Cart <span id="cart-count" style="background:var(--rose);color:#fff;font-size:0.55rem;padding:0.1rem 0.4rem;border-radius:10px;margin-left:0.2rem;display:none">0</span></button>
+  </div>
+  <button class="nav-cta" onclick="go('booking')">Book Now ✦</button>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     PAGE — HOME
+════════════════════════════════════════════════ -->
+<div class="page active" id="pg-home">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-orbs"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div></div>
+    <div class="hero-eyebrow"><div class="pulse"></div>Delhi's #1 AI-Powered Bridal Platform · 2,400+ Brides Served</div>
+    <h1 class="hero-h1">Your wedding look,<br/><em>designed by AI.</em><br/>Delivered by artists.</h1>
+    <p class="hero-sub">Tell us about your wedding. Our AI matches you to the perfect bridal artist — then handles every detail, from trial to the big day. ✨</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="go('packages')">✦ Explore Packages</button>
+      <button class="btn-outline" onclick="go('artists')">Meet Our Artists →</button>
+    </div>
+    <!-- AI DEMO -->
+    <div class="hero-demo">
+      <div class="demo-label"><span class="pulse" style="width:7px;height:7px;border-radius:50%;background:var(--rose);animation:blink 1.5s infinite"></span>AI Look Advisor — Try it live</div>
+      <div class="demo-row">
+        <textarea class="demo-ta" id="demoInput" rows="2" placeholder="Describe your wedding… e.g. 'Red Banarasi lehenga, December morning, outdoor mandap in Jaipur…'"></textarea>
+        <button class="demo-btn" id="demoBtn" onclick="runDemo()">Generate Look ✦</button>
+      </div>
+      <div class="demo-result" id="demoResult"></div>
+    </div>
+  </div>
+
+  <!-- IMPACT STRIP -->
+  <div class="impact-strip">
+    <div class="ic"><span class="ic-num">2,400+</span><span class="ic-lbl">Brides Styled</span></div>
+    <div class="ic"><span class="ic-num">480+</span><span class="ic-lbl">Women Artists</span></div>
+    <div class="ic"><span class="ic-num">4.97★</span><span class="ic-lbl">Avg. Rating</span></div>
+    <div class="ic"><span class="ic-num">₹0</span><span class="ic-lbl">Hidden Fees</span></div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="feat-section">
+    <div class="s-tag">Why Shringar AI</div>
+    <h2 class="s-h2">Beauty meets technology.<br/><em>Tradition meets trust.</em></h2>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon fi-v">🤖</div>
+        <h3>AI Look Matching</h3>
+        <p>Describe your outfit, skin tone, and ceremony. Our model generates a full bridal look recommendation and matches you to the artist best suited to execute it.</p>
+        <span class="feat-pill fp-v">⚡ Powered by Claude</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-g">✅</div>
+        <h3>Every Artist Verified</h3>
+        <p>Each artist on Shringar is ID-verified, portfolio-reviewed, and background-checked. You see real reviews from real brides — no paid placements, ever.</p>
+        <span class="feat-pill fp-g">🛡 Trust-First</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-o">🔒</div>
+        <h3>Escrow Payments</h3>
+        <p>Your money stays in escrow until the service is delivered. A ₹500 refundable deposit secures your slot — the balance goes to your artist only after service.</p>
+        <span class="feat-pill fp-o">💰 Pay After Service</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-v">🎨</div>
+        <h3>AI Look Preview</h3>
+        <p>Before your trial session, see a digital preview of your proposed look — makeup style, mehendi pattern, hair concept — so you walk in prepared, not guessing.</p>
+        <span class="feat-pill fp-v">⚡ AI-Generated</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-g">📅</div>
+        <h3>AI Timeline Builder</h3>
+        <p>Our AI generates a getting-ready schedule for your entire family — factoring in ceremony time, travel, and number of people — so nobody's ever rushing on the big day.</p>
+        <span class="feat-pill fp-g">🗓 Stress-Free Day</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-o">♀</div>
+        <h3>Women-First Platform</h3>
+        <p>480+ women artists earn independently through Shringar. Every booking is a direct investment in a woman's livelihood — we take the smallest possible platform cut.</p>
+        <span class="feat-pill fp-o">🌸 Our Mission</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT SECTION -->
+  <div class="chat-section">
+    <div class="chat-layout">
+      <div>
+        <div class="s-tag">AI Bridal Stylist</div>
+        <h2 class="s-h2">Your personal stylist,<br/><em>available 24/7</em></h2>
+        <p class="s-sub" style="margin-bottom:1.5rem">Ask anything — looks, mehendi patterns, skin prep, timing, or which artist to pick. Powered by Claude AI.</p>
+        <div class="qp-row">
+          <button class="qp" onclick="sendQuick(this)">💛 Best look for wheatish skin in December?</button>
+          <button class="qp" onclick="sendQuick(this)">💄 Airbrush vs HD makeup — which is better?</button>
+          <button class="qp" onclick="sendQuick(this)">🌿 What mehendi suits a Punjabi bride?</button>
+          <button class="qp" onclick="sendQuick(this)">📅 How early should I book my artist?</button>
+        </div>
+      </div>
+      <div>
+        <div class="chat-box">
+          <div class="chat-hdr">
+            <div class="chat-av">✦</div>
+            <div><div class="chat-hname">Shringar AI Stylist</div><div class="chat-hsub">Powered by Claude · Delhi Bridal Expert</div></div>
+            <div class="chat-live"></div>
+          </div>
+          <div class="chat-msgs" id="chatBox">
+            <div class="msg msg-ai">Namaste! 🌸 I'm your AI bridal stylist. Tell me about your wedding — outfit, skin tone, venue, ceremony — and I'll craft the perfect look for you.</div>
+          </div>
+          <div class="chat-inp-row">
+            <input class="chat-inp" id="chatInput" placeholder="Describe your look, ask anything…"/>
+            <button class="chat-send" id="chatSendBtn" onclick="sendChat()">Send ✦</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="tb-item"><span class="tb-icon">🔒</span><div><div class="tb-t">Secure Escrow</div><div class="tb-s">Funds held until service delivered</div></div></div>
+    <div class="tb-item"><span class="tb-icon">✅</span><div><div class="tb-t">Verified Artists</div><div class="tb-s">Background-checked, ID-verified</div></div></div>
+    <div class="tb-item"><span class="tb-icon">🛡️</span><div><div class="tb-t">Service Guarantee</div><div class="tb-s">Full refund if artist cancels</div></div></div>
+    <div class="tb-item"><span class="tb-icon">🤖</span><div><div class="tb-t">AI-Powered</div><div class="tb-s">Smart matching & live stylist advice</div></div></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="ft-grid">
+      <div><span class="ft-logo">Shrin<em>gar</em> AI</span><p class="ft-about">Delhi's first AI-powered bridal beauty platform — where technology meets tradition, and every booking empowers a woman artist. 🌸</p></div>
+      <div class="ft-col"><h5>Services</h5><a>Bridal Makeup</a><a>Mehendi Design</a><a>Hair Styling</a><a>Pre-Bridal</a><a>Saree Draping</a></div>
+      <div class="ft-col"><h5>Company</h5><a>About Us</a><a>For Artists</a><a>Our Impact</a><a>Blog</a></div>
+      <div class="ft-col"><h5>Support</h5><a>Help Centre</a><a>Contact Us</a><a>Refund Policy</a><a>Privacy</a></div>
+    </div>
+    <div class="ft-bottom"><p class="ft-copy">© 2025 Shringar Technologies Pvt. Ltd. · New Delhi</p><p class="ft-copy">Built with purpose. Made with love. 🌸</p></div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     PAGE — PACKAGES
+════════════════════════════════════════════════ -->
+<div class="page" id="pg-packages">
+  <div class="pkg-hero">
+    <div class="s-tag" style="justify-content:center">Packages & Pricing</div>
+    <h2 class="s-h2">Every occasion. Every budget.<br/><em>Every kind of bride.</em></h2>
+    <p class="s-sub" style="margin:0 auto;text-align:center">Transparent pricing, zero hidden fees. All packages include an AI look preview and trial session.</p>
+  </div>
+
+  <!-- AUDIENCE SORT -->
+  <div class="pkg-filter-row">
+    <div>
+      <div class="sort-label" style="margin-bottom:0.7rem">👋 Who are you shopping for?</div>
+      <div class="audience-tabs" style="padding:0;max-width:none">
+        <button class="at on" onclick="filterAudience('all')">🌸 All Packages</button>
+        <button class="at" onclick="filterAudience('intimate')">🕊 Intimate / Court</button>
+        <button class="at" onclick="filterAudience('bridal')">💍 Full Bridal</button>
+        <button class="at" onclick="filterAudience('premium')">✨ Premium / Multi-Day</button>
+        <button class="at" onclick="filterAudience('couple')">💑 Couple's Packages</button>
+        <button class="at" onclick="filterAudience('men')">🕴 Groom Packages</button>
+        <button class="at" onclick="filterAudience('eco')">🌿 Eco / Natural</button>
+      </div>
+    </div>
+    <div class="price-range-wrap">
+      <span class="price-range-lbl">Max budget:</span>
+      <input type="range" class="price-range" id="priceRange" min="5000" max="150000" step="5000" value="150000" oninput="filterPrice(this.value)"/>
+      <span class="price-val" id="priceVal">Any</span>
+    </div>
+  </div>
+
+  <!-- SORT CHIPS -->
+  <div style="padding:1rem 3rem 0;max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:0.6rem">
+    <span style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);font-weight:600">Sort:</span>
+    <button class="sc on" onclick="sortPkgs('recommended')">⭐ Recommended</button>
+    <button class="sc" onclick="sortPkgs('price-low')">💰 Price: Low to High</button>
+    <button class="sc" onclick="sortPkgs('price-high')">💎 Price: High to Low</button>
+    <button class="sc" onclick="sortPkgs('popular')">🔥 Most Popular</button>
+  </div>
+
+  <div class="pkg-wrap">
+    <div id="pkgGrid" class="pkg-grid">
+
+      <!-- BLUSH -->
+      <div class="pkg-card" data-audience="intimate bridal" data-price="12000" data-popular="3">
+        <div class="pkg-glow-bar" style="background:linear-gradient(90deg,transparent,var(--sage-lt),transparent)"></div>
+        <div class="pkg-top">
+          <div class="pkg-badge pb-essentials">🕊 Essentials</div>
+          <div class="pkg-name">Blush</div>
+          <div class="pkg-tagline">For intimate ceremonies, court weddings, and civil unions. Clean, luminous, effortlessly you.</div>
+          <div class="pkg-price-row"><span class="pkg-amt">₹12,000</span><span class="pkg-unit">starting price</span></div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-divider"></div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Bridal makeup — one signature look</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Hair styling — blowout or updo</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>One trial session included</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>AI look preview before trial</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>On-day touch-up kit</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Artist travel within 25 km</div>
+          <div class="pkg-book">
+            <button class="pkg-btn-out" onclick="addToCart('Blush Package — Makeup + Hair',12000,'💄'); go('cart')">🛒 Add to Cart</button>
+            <button class="pkg-btn-fill" onclick="bookPackage('Blush Package','₹12,000')">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROSE (FEATURED) -->
+      <div class="pkg-card featured" data-audience="bridal" data-price="28000" data-popular="1">
+        <div class="pkg-glow-bar"></div>
+        <div class="pkg-top">
+          <div class="pkg-badge pb-popular">🔥 Most Popular</div>
+          <div class="pkg-name">Rose</div>
+          <div class="pkg-tagline">The full bridal experience — mehendi, hair, makeup, and saree draping from one trusted team.</div>
+          <div class="pkg-price-row"><span class="pkg-amt">₹28,000</span><span class="pkg-unit">starting price</span></div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-divider"></div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Bridal makeup — HD + airbrush</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Mehendi — hands and feet</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Bridal hair styling</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Saree or lehenga draping</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Family makeup — up to 3 people</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Two trial sessions + AI preview</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>All-day artist presence</div>
+          <div class="pkg-book">
+            <button class="pkg-btn-out" onclick="addToCart('Rose Package — Makeup + Hair + Mehendi',28000,'💍'); go('cart')">🛒 Add to Cart</button>
+            <button class="pkg-btn-fill" onclick="bookPackage('Rose Package','₹28,000')">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MARIGOLD -->
+      <div class="pkg-card" data-audience="premium" data-price="55000" data-popular="2">
+        <div class="pkg-glow-bar" style="background:linear-gradient(90deg,transparent,var(--gold-lt),transparent)"></div>
+        <div class="pkg-top">
+          <div class="pkg-badge pb-premium">✨ Premium</div>
+          <div class="pkg-name">Marigold</div>
+          <div class="pkg-tagline">Three-event coverage — Sangeet, Mehendi & Wedding. A dedicated senior artist and assistant, just for you.</div>
+          <div class="pkg-price-row"><span class="pkg-amt">₹55,000</span><span class="pkg-unit">starting price</span></div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-divider"></div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Sangeet, Mehendi & Wedding day coverage</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>HD + airbrush + contouring</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Full mehendi — hands, feet, arms</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Family makeup — up to 8 people</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Dedicated senior artist + assistant</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Pre-bridal facial + skin prep</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>AI timeline & scheduling tool</div>
+          <div class="pkg-book">
+            <button class="pkg-btn-out" onclick="addToCart('Marigold Package — 3-Event Coverage',55000,'✨'); go('cart')">🛒 Add to Cart</button>
+            <button class="pkg-btn-fill" onclick="bookPackage('Marigold Package','₹55,000')">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOTUS (LUXURY) -->
+      <div class="pkg-card" data-audience="premium" data-price="120000" data-popular="4">
+        <div class="pkg-glow-bar" style="background:linear-gradient(90deg,transparent,var(--gold),transparent)"></div>
+        <div class="pkg-top">
+          <div class="pkg-badge pb-luxury">👑 Luxury</div>
+          <div class="pkg-name">Lotus</div>
+          <div class="pkg-tagline">The ultimate bridal experience. A celebrity-level team, 5-event coverage, international products, and a personal beauty director for your wedding week.</div>
+          <div class="pkg-price-row"><span class="pkg-amt">₹1,20,000</span><span class="pkg-unit">starting price</span></div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-divider"></div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>5-event coverage (full wedding week)</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Celebrity-level senior artist + team of 3</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>International & luxury product kit</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Full bridal family makeup (unlimited)</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>2 skin consultations + facial plan</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Personal beauty director assigned</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Priority 24/7 WhatsApp support</div>
+          <div class="pkg-book">
+            <button class="pkg-btn-out" onclick="addToCart('Lotus Package — Full Week Luxury',120000,'👑'); go('cart')">🛒 Add to Cart</button>
+            <button class="pkg-btn-fill" onclick="bookPackage('Lotus Package','₹1,20,000')">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- COUPLE -->
+      <div class="pkg-card" data-audience="couple bridal" data-price="35000" data-popular="5">
+        <div class="pkg-glow-bar" style="background:linear-gradient(90deg,transparent,var(--rose-lt),transparent)"></div>
+        <div class="pkg-top">
+          <div class="pkg-badge pb-couple">💑 Couple's Package</div>
+          <div class="pkg-name">Together</div>
+          <div class="pkg-tagline">Bridal makeup + groom grooming, coordinated looks, both artists on the same schedule. Perfect for modern couples.</div>
+          <div class="pkg-price-row"><span class="pkg-amt">₹35,000</span><span class="pkg-unit">for both</span></div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-divider"></div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Bridal makeup — HD + airbrush</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Bridal hair styling + mehendi</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Groom shave, facial & grooming</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Coordinated colour palette for both</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>AI couple-look preview</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Two trial sessions</div>
+          <div class="pkg-book">
+            <button class="pkg-btn-out" onclick="addToCart('Together — Couple\'s Package',35000,'💑'); go('cart')">🛒 Add to Cart</button>
+            <button class="pkg-btn-fill" onclick="bookPackage('Together — Couple\'s Package','₹35,000')">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- GROOM -->
+      <div class="pkg-card" data-audience="men couple" data-price="8000" data-popular="6">
+        <div class="pkg-glow-bar" style="background:linear-gradient(90deg,transparent,var(--violet-lt),transparent)"></div>
+        <div class="pkg-top">
+          <div class="pkg-badge pb-men">🕴 Groom Package</div>
+          <div class="pkg-name">Dapper</div>
+          <div class="pkg-tagline">A refined groom look — natural, non-cakey, confidence-boosting. Skincare, grooming, and a subtle finish that photographs beautifully.</div>
+          <div class="pkg-price-row"><span class="pkg-amt">₹8,000</span><span class="pkg-unit">starting price</span></div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-divider"></div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Clean-skin HD base makeup</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Pre-bridal facial + skin prep</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Beard grooming & shaping</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Hair styling with premium products</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Touch-up kit for the day</div>
+          <div class="pkg-book">
+            <button class="pkg-btn-out" onclick="addToCart('Dapper — Groom Package',8000,'🕴'); go('cart')">🛒 Add to Cart</button>
+            <button class="pkg-btn-fill" onclick="bookPackage('Dapper — Groom Package','₹8,000')">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ECO / NATURAL -->
+      <div class="pkg-card" data-audience="eco intimate" data-price="18000" data-popular="7">
+        <div class="pkg-glow-bar" style="background:linear-gradient(90deg,transparent,var(--sage-lt),transparent)"></div>
+        <div class="pkg-top">
+          <div class="pkg-badge pb-eco">🌿 Eco Bridal</div>
+          <div class="pkg-name">Bloom</div>
+          <div class="pkg-tagline">100% natural and organic products. Cruelty-free, skin-loving, and kind to the planet — without compromising on the look.</div>
+          <div class="pkg-price-row"><span class="pkg-amt">₹18,000</span><span class="pkg-unit">starting price</span></div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-divider"></div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>100% certified organic makeup kit</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Natural henna mehendi</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Herbal hair treatment + styling</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Pre-bridal natural glow facial</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Zero synthetic fragrance guarantee</div>
+          <div class="pkg-feat"><span class="feat-check">✓</span>Eco-packaged touch-up kit</div>
+          <div class="pkg-book">
+            <button class="pkg-btn-out" onclick="addToCart('Bloom — Eco Bridal Package',18000,'🌿'); go('cart')">🛒 Add to Cart</button>
+            <button class="pkg-btn-fill" onclick="bookPackage('Bloom — Eco Bridal Package','₹18,000')">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end pkg grid -->
+
+    <!-- NO RESULTS MESSAGE -->
+    <div id="pkgNoResults" style="display:none;text-align:center;padding:3rem;color:var(--muted)">
+      <div style="font-size:2.5rem;margin-bottom:1rem">🔍</div>
+      <p style="font-size:0.9rem">No packages match your current filters.</p>
+      <button class="btn-outline btn-sm" style="margin-top:1rem" onclick="resetFilters()">Reset Filters</button>
+    </div>
+  </div>
+
+  <!-- ADDON SECTION -->
+  <div class="addon-section">
+    <div class="addon-wrap">
+      <div class="s-tag">À La Carte</div>
+      <h2 class="s-h2" style="margin-bottom:0.4rem">Mix & match add-ons</h2>
+      <p style="font-size:0.82rem;color:var(--muted);font-weight:300">Add these to any package at checkout.</p>
+      <div class="addon-grid">
+        <div class="addon-card">
+          <div class="addon-icon">🌿</div>
+          <h4>Mehendi — Bridal</h4>
+          <p>Full hands and feet, Rajasthani or Arabic design. Dulha name hidden in the pattern.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div class="addon-p">from ₹6,500</div>
+            <button class="pkg-btn-add" style="padding:0.4rem 0.9rem;font-size:0.68rem" onclick="addToCart('Mehendi — Bridal (Hands + Feet)',6500,'🌿'); go('cart')">+ Add</button>
+          </div>
+        </div>
+        <div class="addon-card">
+          <div class="addon-icon">💆</div>
+          <h4>Pre-Bridal Facial</h4>
+          <p>Deep cleanse and hydration 48 hours before the wedding for a radiant canvas.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div class="addon-p">from ₹2,800</div>
+            <button class="pkg-btn-add" style="padding:0.4rem 0.9rem;font-size:0.68rem" onclick="addToCart('Pre-Bridal Facial',2800,'💆'); go('cart')">+ Add</button>
+          </div>
+        </div>
+        <div class="addon-card">
+          <div class="addon-icon">👗</div>
+          <h4>Saree Draping</h4>
+          <p>Expert draping in 12+ styles — Bengali, Gujarati, Nivi, Mumtaz, and more.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div class="addon-p">from ₹1,500</div>
+            <button class="pkg-btn-add" style="padding:0.4rem 0.9rem;font-size:0.68rem" onclick="addToCart('Saree Draping',1500,'👗'); go('cart')">+ Add</button>
+          </div>
+        </div>
+        <div class="addon-card">
+          <div class="addon-icon">👨‍👩‍👧</div>
+          <h4>Family Makeup</h4>
+          <p>Makeup for up to 4 family members by a dedicated second artist.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div class="addon-p">from ₹8,000</div>
+            <button class="pkg-btn-add" style="padding:0.4rem 0.9rem;font-size:0.68rem" onclick="addToCart('Family Makeup (up to 4)',8000,'👨‍👩‍👧'); go('cart')">+ Add</button>
+          </div>
+        </div>
+        <div class="addon-card">
+          <div class="addon-icon">✂️</div>
+          <h4>Sangeet Hair & Makeup</h4>
+          <p>A bold separate look for your Sangeet, completely distinct from your wedding day.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div class="addon-p">from ₹7,500</div>
+            <button class="pkg-btn-add" style="padding:0.4rem 0.9rem;font-size:0.68rem" onclick="addToCart('Sangeet Hair & Makeup',7500,'✂️'); go('cart')">+ Add</button>
+          </div>
+        </div>
+        <div class="addon-card">
+          <div class="addon-icon">🤖</div>
+          <h4>AI Timeline Builder</h4>
+          <p>AI-generated getting-ready schedule for you and your full family. Never be rushed.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div class="addon-p">₹299</div>
+            <button class="pkg-btn-add" style="padding:0.4rem 0.9rem;font-size:0.68rem" onclick="addToCart('AI Timeline Builder',299,'🤖'); go('cart')">+ Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="ft-grid">
+      <div><span class="ft-logo">Shrin<em>gar</em> AI</span><p class="ft-about">Delhi's first AI-powered bridal beauty platform.</p></div>
+      <div class="ft-col"><h5>Services</h5><a>Bridal Makeup</a><a>Mehendi</a><a>Hair Styling</a></div>
+      <div class="ft-col"><h5>Company</h5><a>About Us</a><a>For Artists</a><a>Blog</a></div>
+      <div class="ft-col"><h5>Support</h5><a>Help Centre</a><a>Contact</a></div>
+    </div>
+    <div class="ft-bottom"><p class="ft-copy">© 2025 Shringar Technologies Pvt. Ltd.</p><p class="ft-copy">Made with love. 🌸</p></div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     PAGE — ARTISTS
+════════════════════════════════════════════════ -->
+<div class="page" id="pg-artists">
+  <div class="artists-hero">
+    <div class="wrap">
+      <div class="s-tag">Our Artists</div>
+      <h2 class="s-h2">Delhi's finest bridal team</h2>
+      <p class="s-sub">Every artist is background-verified, portfolio-reviewed, and carries a service guarantee. AI-matched to your specific look.</p>
+    </div>
+  </div>
+  <div class="artist-filter-bar">
+    <button class="fc on">All</button>
+    <button class="fc">Bridal Makeup</button>
+    <button class="fc">Mehendi</button>
+    <button class="fc">Hair Styling</button>
+    <button class="fc">Airbrush</button>
+    <button class="fc">HD Makeup</button>
+    <button class="fc">Saree Draping</button>
+    <button class="fc">Groom Grooming</button>
+    <button class="fc">Organic / Natural</button>
+  </div>
+  <div class="artist-grid">
+    <div class="acard">
+      <div class="ac-img" style="background:linear-gradient(145deg,#3D1A22,#7E3346)"><span>💄</span><span class="ac-pill pill-v">Top Pick</span><span class="ac-ai">AI Match 98%</span></div>
+      <div class="ac-body">
+        <div class="ac-name">Nisha Sharma</div><div class="ac-loc">📍 South Delhi · 8 yrs exp</div>
+        <div class="ac-tags"><span class="ac-tag">HD Makeup</span><span class="ac-tag">Airbrush</span></div>
+        <div class="ac-foot"><span class="ac-price">₹18,000<small>/day</small></span><span class="ac-stars">★★★★★<span class="ac-cnt"> (312)</span></span></div>
+        <button class="ac-book" onclick="bookPackage('Artist: Nisha Sharma','₹18,000')">Book Now →</button>
+      </div>
+    </div>
+    <div class="acard">
+      <div class="ac-img" style="background:linear-gradient(145deg,#2C1F0E,#7A5C2E)"><span>🌿</span><span class="ac-pill pill-g">Trending</span><span class="ac-ai">AI Match 94%</span></div>
+      <div class="ac-body">
+        <div class="ac-name">Priya Mehendi Studio</div><div class="ac-loc">📍 Lajpat Nagar · 5 yrs</div>
+        <div class="ac-tags"><span class="ac-tag">Rajasthani</span><span class="ac-tag">Arabic</span></div>
+        <div class="ac-foot"><span class="ac-price">₹6,500<small>/event</small></span><span class="ac-stars">★★★★★<span class="ac-cnt"> (88)</span></span></div>
+        <button class="ac-book" onclick="bookPackage('Artist: Priya Mehendi Studio','₹6,500')">Book Now →</button>
+      </div>
+    </div>
+    <div class="acard">
+      <div class="ac-img" style="background:linear-gradient(145deg,#1A1A2E,#4A4A8A)"><span>✂️</span><span class="ac-ai">AI Match 91%</span></div>
+      <div class="ac-body">
+        <div class="ac-name">Kavya Hair Artistry</div><div class="ac-loc">📍 Dwarka · 6 yrs</div>
+        <div class="ac-tags"><span class="ac-tag">Braids</span><span class="ac-tag">Updo</span></div>
+        <div class="ac-foot"><span class="ac-price">₹9,000<small>/session</small></span><span class="ac-stars">★★★★☆<span class="ac-cnt"> (145)</span></span></div>
+        <button class="ac-book" onclick="bookPackage('Artist: Kavya Hair Artistry','₹9,000')">Book Now →</button>
+      </div>
+    </div>
+    <div class="acard">
+      <div class="ac-img" style="background:linear-gradient(145deg,#1E2D1E,#3A6B3A)"><span>🪷</span><span class="ac-pill pill-v">Top Pick</span><span class="ac-ai">AI Match 97%</span></div>
+      <div class="ac-body">
+        <div class="ac-name">Glamour by Ritika</div><div class="ac-loc">📍 Vasant Kunj · 10 yrs</div>
+        <div class="ac-tags"><span class="ac-tag">Airbrush</span><span class="ac-tag">Saree Draping</span></div>
+        <div class="ac-foot"><span class="ac-price">₹22,000<small>/day</small></span><span class="ac-stars">★★★★★<span class="ac-cnt"> (278)</span></span></div>
+        <button class="ac-book" onclick="bookPackage('Artist: Glamour by Ritika','₹22,000')">Book Now →</button>
+      </div>
+    </div>
+    <div class="acard">
+      <div class="ac-img" style="background:linear-gradient(145deg,#2E1A2E,#6B3A6B)"><span>💅</span><span class="ac-ai">AI Match 89%</span></div>
+      <div class="ac-body">
+        <div class="ac-name">Mehak Beauty Lounge</div><div class="ac-loc">📍 Rajouri Garden · 7 yrs</div>
+        <div class="ac-tags"><span class="ac-tag">Contouring</span><span class="ac-tag">HD</span></div>
+        <div class="ac-foot"><span class="ac-price">₹14,000<small>/day</small></span><span class="ac-stars">★★★★★<span class="ac-cnt"> (201)</span></span></div>
+        <button class="ac-book" onclick="bookPackage('Artist: Mehak Beauty Lounge','₹14,000')">Book Now →</button>
+      </div>
+    </div>
+    <div class="acard">
+      <div class="ac-img" style="background:linear-gradient(145deg,#1A2030,#2A4070)"><span>🌺</span><span class="ac-pill pill-g">Trending</span><span class="ac-ai">AI Match 95%</span></div>
+      <div class="ac-body">
+        <div class="ac-name">Ananya Brides</div><div class="ac-loc">📍 Connaught Place · 9 yrs</div>
+        <div class="ac-tags"><span class="ac-tag">South Asian</span><span class="ac-tag">Glam</span></div>
+        <div class="ac-foot"><span class="ac-price">₹25,000<small>/day</small></span><span class="ac-stars">★★★★★<span class="ac-cnt"> (390)</span></span></div>
+        <button class="ac-book" onclick="bookPackage('Artist: Ananya Brides','₹25,000')">Book Now →</button>
+      </div>
+    </div>
+    <div class="acard">
+      <div class="ac-img" style="background:linear-gradient(145deg,#1E3020,#3A7040)"><span>🌿</span><span class="ac-ai">AI Match 92%</span></div>
+      <div class="ac-body">
+        <div class="ac-name">Green Glam Studio</div><div class="ac-loc">📍 Saket · 4 yrs</div>
+        <div class="ac-tags"><span class="ac-tag">Organic</span><span class="ac-tag">Natural</span></div>
+        <div class="ac-foot"><span class="ac-price">₹15,000<small>/day</small></span><span class="ac-stars">★★★★★<span class="ac-cnt"> (64)</span></span></div>
+        <button class="ac-book" onclick="bookPackage('Artist: Green Glam Studio','₹15,000')">Book Now →</button>
+      </div>
+    </div>
+    <div class="acard">
+      <div class="ac-img" style="background:linear-gradient(145deg,#20201E,#505048)"><span>🧔</span><span class="ac-ai">AI Match 88%</span></div>
+      <div class="ac-body">
+        <div class="ac-name">The Groom Room</div><div class="ac-loc">📍 Greater Kailash · 6 yrs</div>
+        <div class="ac-tags"><span class="ac-tag">Groom Grooming</span><span class="ac-tag">HD</span></div>
+        <div class="ac-foot"><span class="ac-price">₹8,000<small>/session</small></span><span class="ac-stars">★★★★☆<span class="ac-cnt"> (97)</span></span></div>
+        <button class="ac-book" onclick="bookPackage('Artist: The Groom Room','₹8,000')">Book Now →</button>
+      </div>
+    </div>
+  </div>
+  <div class="trust-bar">
+    <div class="tb-item"><span class="tb-icon">🔒</span><div><div class="tb-t">Escrow Payments</div><div class="tb-s">Pay only after service</div></div></div>
+    <div class="tb-item"><span class="tb-icon">✅</span><div><div class="tb-t">Verified Artists</div><div class="tb-s">Every artist ID-checked</div></div></div>
+    <div class="tb-item"><span class="tb-icon">🛡️</span><div><div class="tb-t">Service Guarantee</div><div class="tb-s">Full refund if cancelled</div></div></div>
+    <div class="tb-item"><span class="tb-icon">🤖</span><div><div class="tb-t">AI-Matched</div><div class="tb-s">Best fit for your look</div></div></div>
+  </div>
+  <footer>
+    <div class="ft-grid">
+      <div><span class="ft-logo">Shrin<em>gar</em> AI</span><p class="ft-about">Delhi's first AI-powered bridal beauty platform.</p></div>
+      <div class="ft-col"><h5>Services</h5><a>Bridal Makeup</a><a>Mehendi</a><a>Hair Styling</a></div>
+      <div class="ft-col"><h5>Company</h5><a>About Us</a><a>For Artists</a><a>Blog</a></div>
+      <div class="ft-col"><h5>Support</h5><a>Help Centre</a><a>Contact</a></div>
+    </div>
+    <div class="ft-bottom"><p class="ft-copy">© 2025 Shringar Technologies Pvt. Ltd.</p></div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     PAGE — CART
+════════════════════════════════════════════════ -->
+<div class="page" id="pg-cart">
+  <div class="cart-page">
+    <div class="cart-layout">
+      <div class="cart-left">
+        <h2>Your Cart 🛒</h2>
+        <p>Review your selections before booking. You can remove items or continue to choose your artist, date, and time.</p>
+        <div class="cart-items" id="cartItems">
+          <div class="cart-empty" id="cartEmpty">
+            <div class="ce-icon">🛒</div>
+            <p>Your cart is empty.<br/>Browse packages to add services.</p>
+            <button class="btn-primary btn-sm" style="margin-top:1.2rem" onclick="go('packages')">✦ Browse Packages</button>
+          </div>
+        </div>
+        <button class="btn-outline btn-sm" id="clearCartBtn" onclick="clearCart()" style="display:none;margin-bottom:1.5rem">🗑 Clear Cart</button>
+        <div style="background:var(--night2);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1.5rem;margin-bottom:1.5rem" id="couponBox">
+          <div class="f-lbl" style="margin-bottom:0.5rem">🎁 Have a coupon code?</div>
+          <div style="display:flex;gap:0.7rem">
+            <input type="text" placeholder="Enter code e.g. BRIDE2025" id="couponInput" style="flex:1"/>
+            <button onclick="applyCoupon()" style="background:rgba(107,63,160,0.2);color:var(--violet-lt);border:1px solid rgba(107,63,160,0.35);padding:0.85rem 1.2rem;border-radius:10px;font-size:0.78rem;font-weight:600;transition:all 0.2s;white-space:nowrap">Apply</button>
+          </div>
+          <div id="couponMsg" style="font-size:0.72rem;margin-top:0.5rem;color:var(--muted)"></div>
+        </div>
+      </div>
+
+      <!-- CART SUMMARY -->
+      <div>
+        <div class="cart-summary">
+          <div class="cs-title">Order Summary</div>
+          <div class="cs-rows" id="summaryRows">
+            <div class="cs-row" style="color:var(--muted)"><span>No items yet</span><span>—</span></div>
+          </div>
+          <div class="cs-rows" style="margin-top:0">
+            <div class="cs-row"><span>Platform fee</span><span>₹500</span></div>
+            <div class="cs-row total" id="cartTotal"><span>Total</span><span>₹500</span></div>
+            <div class="cs-row deposit"><span>🔒 Deposit due now</span><span id="depositAmt">₹500</span></div>
+          </div>
+          <button class="cs-book-now" onclick="go('booking')" id="cartBookBtn" style="opacity:0.5;pointer-events:none;margin-top:1.4rem">Book Now — Pay ₹500 Deposit ✦</button>
+          <div class="cs-note">Deposit is fully refundable if you cancel 7+ days before your date.</div>
+          <div class="cs-secure">🔒 Secured by Shringar Escrow · 256-bit encrypted</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="ft-grid">
+      <div><span class="ft-logo">Shrin<em>gar</em> AI</span><p class="ft-about">Delhi's first AI-powered bridal beauty platform.</p></div>
+      <div class="ft-col"><h5>Services</h5><a>Bridal Makeup</a><a>Mehendi</a><a>Hair Styling</a></div>
+      <div class="ft-col"><h5>Company</h5><a>About Us</a><a>For Artists</a><a>Blog</a></div>
+      <div class="ft-col"><h5>Support</h5><a>Help Centre</a><a>Contact</a></div>
+    </div>
+    <div class="ft-bottom"><p class="ft-copy">© 2025 Shringar Technologies Pvt. Ltd.</p></div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     PAGE — BOOKING FLOW
+════════════════════════════════════════════════ -->
+<div class="page" id="pg-booking">
+  <div class="booking-hero">
+    <div class="s-tag" style="justify-content:center">Book Your Artist</div>
+    <h2 class="s-h2" style="font-size:clamp(2rem,4vw,3rem)">Reserve your slot ✦</h2>
+    <p class="s-sub" style="margin:0 auto;text-align:center;font-size:0.82rem">Winter 2025–26 slots filling fast. A ₹500 fully-refundable deposit secures your date.</p>
+  </div>
+
+  <div class="booking-layout">
+    <div>
+      <!-- PROGRESS TRACK -->
+      <div class="progress-track">
+        <div class="prog-step on" id="ps1">
+          <div class="prog-num">1</div>
+          <div class="prog-txt"><span class="prog-label">Choose Package</span><span class="prog-sub">Select your services</span></div>
+        </div>
+        <div class="prog-step" id="ps2">
+          <div class="prog-num">2</div>
+          <div class="prog-txt"><span class="prog-label">Date & Time</span><span class="prog-sub">Pick your slot</span></div>
+        </div>
+        <div class="prog-step" id="ps3">
+          <div class="prog-num">3</div>
+          <div class="prog-txt"><span class="prog-label">Your Details</span><span class="prog-sub">Name, venue & notes</span></div>
+        </div>
+        <div class="prog-step" id="ps4">
+          <div class="prog-num">4</div>
+          <div class="prog-txt"><span class="prog-label">Payment</span><span class="prog-sub">Secure ₹500 deposit</span></div>
+        </div>
+      </div>
+
+      <!-- STEP 1: PACKAGE -->
+      <div class="bf show" id="bf1">
+        <div class="fs-title">🎁 Choose your package</div>
+        <div class="svc-list">
+          <div class="svc-item sel" onclick="selectSvc(this,'Rose Package — Makeup + Hair + Mehendi',28000)">
+            <div class="svc-l"><span class="svc-icon">💍</span><div><div class="svc-n">Rose — Makeup + Hair + Mehendi</div><div class="svc-d">Most popular · 2 trial sessions · Full day coverage</div></div></div>
+            <div style="display:flex;align-items:center;gap:1rem"><span class="svc-p">₹28,000</span><div class="svc-dot">✓</div></div>
+          </div>
+          <div class="svc-item" onclick="selectSvc(this,'Blush Package — Makeup + Hair',12000)">
+            <div class="svc-l"><span class="svc-icon">💄</span><div><div class="svc-n">Blush — Makeup + Hair</div><div class="svc-d">Ideal for intimate ceremonies & court weddings</div></div></div>
+            <div style="display:flex;align-items:center;gap:1rem"><span class="svc-p">₹12,000</span><div class="svc-dot">✓</div></div>
+          </div>
+          <div class="svc-item" onclick="selectSvc(this,'Marigold Package — 3-Event Coverage',55000)">
+            <div class="svc-l"><span class="svc-icon">✨</span><div><div class="svc-n">Marigold — 3-Event Coverage</div><div class="svc-d">Sangeet, Mehendi & Wedding day · Senior artist</div></div></div>
+            <div style="display:flex;align-items:center;gap:1rem"><span class="svc-p">₹55,000</span><div class="svc-dot">✓</div></div>
+          </div>
+          <div class="svc-item" onclick="selectSvc(this,'Lotus Package — Full Week Luxury',120000)">
+            <div class="svc-l"><span class="svc-icon">👑</span><div><div class="svc-n">Lotus — Full Week Luxury</div><div class="svc-d">5-event coverage · Celebrity team · International products</div></div></div>
+            <div style="display:flex;align-items:center;gap:1rem"><span class="svc-p">₹1,20,000</span><div class="svc-dot">✓</div></div>
+          </div>
+          <div class="svc-item" onclick="selectSvc(this,'Together — Couple\'s Package',35000)">
+            <div class="svc-l"><span class="svc-icon">💑</span><div><div class="svc-n">Together — Couple's Package</div><div class="svc-d">Bride + Groom coordinated looks</div></div></div>
+            <div style="display:flex;align-items:center;gap:1rem"><span class="svc-p">₹35,000</span><div class="svc-dot">✓</div></div>
+          </div>
+          <div class="svc-item" onclick="selectSvc(this,'Dapper — Groom Package',8000)">
+            <div class="svc-l"><span class="svc-icon">🕴</span><div><div class="svc-n">Dapper — Groom Package</div><div class="svc-d">Grooming, HD base, beard styling</div></div></div>
+            <div style="display:flex;align-items:center;gap:1rem"><span class="svc-p">₹8,000</span><div class="svc-dot">✓</div></div>
+          </div>
+        </div>
+        <div class="f-lbl" style="margin-bottom:0.6rem">➕ Optional add-ons</div>
+        <div class="svc-list" id="addonList">
+          <div class="svc-item addon-toggle" onclick="toggleAddon(this,'Mehendi Bridal (Hands + Feet)',6500)"><div class="svc-l"><span class="svc-icon">🌿</span><div><div class="svc-n">Mehendi Bridal (hands + feet)</div><div class="svc-d">Rajasthani or Arabic design</div></div></div><div style="display:flex;align-items:center;gap:1rem"><span class="svc-p">₹6,500</span><div class="svc-dot">+</div></div></div>
+          <div class="svc-item addon-toggle" onclick="toggleAddon(this,'Saree Draping',1500)"><div class="svc-l"><span class="svc-icon">👗</span><div><div class="svc-n">Saree Draping</div><div class="svc-d">12+ draping styles available</div></div></div><div style="display:flex;align-items:center;gap:1rem"><span class="svc-p">₹1,500</span><div class="svc-dot">+</div></div></div>
+          <div class="svc-item addon-toggle" onclick="toggleAddon(this,'Pre-Bridal Facial',2800)"><div class="svc-l"><span class="svc-icon">💆</span><div><div class="svc-n">Pre-Bridal Facial</div><div class="svc-d">Deep cleanse 48 hrs before wedding</div></div></div><div style="display:flex;align-items:center;gap:1rem"><span class="svc-p">₹2,800</span><div class="svc-dot">+</div></div></div>
+        </div>
+        <div class="step-nav">
+          <button class="btn-primary" style="flex:1" onclick="nextStep()">Continue to Date & Time →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: DATE & TIME -->
+      <div class="bf" id="bf2">
+        <div class="fs-title">📅 Wedding date & preferred time</div>
+        <div class="fg">
+          <div><label class="f-lbl">Wedding date</label><input type="date" id="weddingDate"/></div>
+          <div><label class="f-lbl">Venue area</label><select><option>Delhi</option><option>South Delhi</option><option>Noida</option><option>Gurugram</option><option>Dwarka</option><option>Noida Extension</option></select></div>
+        </div>
+        <label class="f-lbl" style="margin-bottom:0.55rem;display:block">Preferred start time 🕐</label>
+        <div class="slot-grid">
+          <button class="slot" onclick="selSlot(this)">4:00 AM</button>
+          <button class="slot" onclick="selSlot(this)">4:30 AM</button>
+          <button class="slot sel" onclick="selSlot(this)">5:00 AM</button>
+          <button class="slot" onclick="selSlot(this)">5:30 AM</button>
+          <button class="slot" onclick="selSlot(this)">6:00 AM</button>
+          <button class="slot" onclick="selSlot(this)">6:30 AM</button>
+          <button class="slot off">7:00 AM</button>
+          <button class="slot off">7:30 AM</button>
+        </div>
+        <p style="font-size:0.63rem;color:var(--muted);margin-top:0.6rem">⚠️ Greyed slots are already booked for that date.</p>
+        <label class="f-lbl" style="margin:1.4rem 0 0.5rem;display:block">Preferred artist 💄</label>
+        <select>
+          <option>Best available (AI-matched for your look)</option>
+          <option>Nisha Sharma — South Delhi ★4.97</option>
+          <option>Glamour by Ritika — Vasant Kunj ★4.95</option>
+          <option>Ananya Brides — Connaught Place ★4.98</option>
+          <option>Mehak Beauty Lounge — Rajouri Garden ★4.96</option>
+        </select>
+        <div class="step-nav">
+          <button class="btn-outline" onclick="prevStep()">← Back</button>
+          <button class="btn-primary" onclick="nextStep()">Continue to Your Details →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: YOUR DETAILS -->
+      <div class="bf" id="bf3">
+        <div class="fs-title">📝 Your details</div>
+        <div class="fg">
+          <div><label class="f-lbl">Full name</label><input type="text" placeholder="Anika Kapoor"/></div>
+          <div><label class="f-lbl">Phone number</label><input type="tel" placeholder="+91 98765 43210"/></div>
+        </div>
+        <div class="fg full">
+          <div><label class="f-lbl">Email address</label><input type="email" placeholder="anika@example.com"/></div>
+        </div>
+        <div class="fg full">
+          <div><label class="f-lbl">📍 Venue name & address</label><input type="text" placeholder="Taj Palace, Sardar Patel Marg, New Delhi"/></div>
+        </div>
+        <div class="fg full">
+          <div><label class="f-lbl">Inspiration & special notes</label><textarea placeholder="Share your bridal look inspiration, outfit colour, skin tone, any allergies, or special requests… Our artist will review this before your trial. 🌸"></textarea></div>
+        </div>
+        <div class="step-nav">
+          <button class="btn-outline" onclick="prevStep()">← Back</button>
+          <button class="btn-primary" onclick="nextStep()">Continue to Payment →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: PAYMENT -->
+      <div class="bf" id="bf4">
+        <div class="fs-title">💳 Choose payment method</div>
+        <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1.4rem;font-weight:300">You're paying a ₹500 refundable deposit to secure your slot. The balance is paid directly to your artist after service.</p>
+        <div class="payment-opts">
+          <div class="pay-opt sel" onclick="selPay(this,'upi')">
+            <div class="pay-icon">📱</div>
+            <div><div class="pay-name">UPI / Google Pay / PhonePe</div><div class="pay-desc">Instant payment. Most popular in India.</div></div>
+            <div class="pay-dot">✓</div>
+          </div>
+          <div class="pay-opt" onclick="selPay(this,'card')">
+            <div class="pay-icon">💳</div>
+            <div><div class="pay-name">Credit / Debit Card</div><div class="pay-desc">Visa, Mastercard, RuPay accepted.</div></div>
+            <div class="pay-dot">✓</div>
+          </div>
+          <div class="pay-opt" onclick="selPay(this,'netbanking')">
+            <div class="pay-icon">🏦</div>
+            <div><div class="pay-name">Net Banking</div><div class="pay-desc">All major Indian banks supported.</div></div>
+            <div class="pay-dot">✓</div>
+          </div>
+          <div class="pay-opt" onclick="selPay(this,'emi')">
+            <div class="pay-icon">📅</div>
+            <div><div class="pay-name">EMI / Buy Now Pay Later</div><div class="pay-desc">Split into 3–12 easy instalments via Bajaj or Simpl.</div></div>
+            <div class="pay-dot">✓</div>
+          </div>
+        </div>
+        <div class="upi-input-row" id="upiInput">
+          <input type="text" placeholder="Enter your UPI ID e.g. name@paytm"/>
+          <button class="verify-btn">Verify ✓</button>
+        </div>
+        <div style="background:rgba(78,124,89,0.08);border:1px solid rgba(78,124,89,0.2);border-radius:12px;padding:1.1rem 1.3rem;margin-top:1.2rem;font-size:0.78rem;color:var(--sage-lt)">
+          🔒 Your payment is secured by Shringar Escrow. The ₹500 deposit is held safely until your service is completed. Fully refundable if you cancel 7+ days before.
+        </div>
+        <div class="step-nav">
+          <button class="btn-outline" onclick="prevStep()">← Back</button>
+          <button class="btn-primary" onclick="confirmBooking()">🎉 Confirm & Pay ₹500 Deposit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOKING SIDEBAR -->
+    <div>
+      <div class="sum-card">
+        <div class="sum-h">Booking Summary</div>
+        <div class="sum-artist-row">
+          <div class="sum-av">NS</div>
+          <div><div class="sum-aname">Nisha Sharma</div><div class="sum-aspec">Bridal Makeup · South Delhi</div></div>
+        </div>
+        <div class="sum-rows" id="bkSummaryRows">
+          <div class="sum-row"><span>Rose Package (Makeup + Hair + Mehendi)</span><span>₹28,000</span></div>
+          <div class="sum-row"><span>Platform fee</span><span>₹500</span></div>
+          <div class="sum-row sum-total"><span>Total</span><span>₹28,500</span></div>
+          <div class="sum-row sum-dep"><span>🔒 Deposit due now</span><span>₹500</span></div>
+        </div>
+        <button class="sum-cta" onclick="confirmBooking()">Pay ₹500 Deposit →</button>
+        <div class="sum-note">Balance paid directly to your artist after service. Deposit is fully refundable if you cancel 7+ days before.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="ft-grid">
+      <div><span class="ft-logo">Shrin<em>gar</em> AI</span><p class="ft-about">Delhi's first AI-powered bridal beauty platform.</p></div>
+      <div class="ft-col"><h5>Services</h5><a>Bridal Makeup</a><a>Mehendi</a><a>Hair Styling</a></div>
+      <div class="ft-col"><h5>Company</h5><a>About Us</a><a>For Artists</a><a>Blog</a></div>
+      <div class="ft-col"><h5>Support</h5><a>Help Centre</a><a>Contact</a></div>
+    </div>
+    <div class="ft-bottom"><p class="ft-copy">© 2025 Shringar Technologies Pvt. Ltd.</p></div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     PAGE — CONFIRMATION
+════════════════════════════════════════════════ -->
+<div class="page" id="pg-confirm">
+  <div class="confirm-page">
+    <div class="confirm-card">
+      <div class="confirm-icon">🌸</div>
+      <h2>You're all booked!</h2>
+      <p>Your slot is confirmed and your artist has been notified. We'll send a booking summary to your email with next steps and trial session details.</p>
+      <div class="confirm-ref">
+        <div class="ref-lbl">Booking Reference</div>
+        <div class="ref-val" id="bookingRef">SHR-2025-7841</div>
+      </div>
+      <div class="confirm-actions">
+        <button class="btn-primary" onclick="go('home')">← Back to Home</button>
+        <button class="btn-outline" onclick="go('packages')">Browse More Packages</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══ PAGE NAVIGATION ═══ */
+const PAGES = ['home','packages','artists','cart','booking','confirm'];
+function go(id){
+  PAGES.forEach(p=>{
+    const el=document.getElementById('pg-'+p);
+    if(el){el.classList.remove('active');}
+    const nl=document.getElementById('nl-'+p);
+    if(nl){nl.classList.remove('on');}
+  });
+  const target=document.getElementById('pg-'+id);
+  if(target){target.classList.add('active');}
+  const nl=document.getElementById('nl-'+id)||document.getElementById('nl-booking');
+  if(nl&&['home','packages','artists','cart'].includes(id)){nl.classList.add('on');}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ═══ CART STATE ═══ */
+let cartItems=[];
+function addToCart(name,price,icon){
+  const exists=cartItems.findIndex(i=>i.name===name);
+  if(exists>=0){cartItems.splice(exists,1);}
+  cartItems.push({name,price,icon});
+  renderCart();
+  updateCartCount();
+  showCartToast(name);
+}
+function showCartToast(name){
+  const t=document.getElementById('toast');
+  t.querySelector('.t-icon').textContent='🛒';
+  t.querySelector('h4').textContent='Added to Cart!';
+  t.querySelector('p').textContent=name+' has been added.';
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+function removeFromCart(idx){
+  cartItems.splice(idx,1);
+  renderCart();
+  updateCartCount();
+}
+function clearCart(){
+  cartItems=[];
+  renderCart();
+  updateCartCount();
+}
+function updateCartCount(){
+  const badge=document.getElementById('cart-count');
+  if(cartItems.length>0){badge.textContent=cartItems.length;badge.style.display='inline';}
+  else{badge.style.display='none';}
+}
+function renderCart(){
+  const container=document.getElementById('cartItems');
+  const empty=document.getElementById('cartEmpty');
+  const rows=document.getElementById('summaryRows');
+  const totalEl=document.getElementById('cartTotal');
+  const bookBtn=document.getElementById('cartBookBtn');
+  const clearBtn=document.getElementById('clearCartBtn');
+  container.querySelectorAll('.cart-item').forEach(e=>e.remove());
+  if(cartItems.length===0){
+    empty.style.display='block';
+    rows.innerHTML='<div class="cs-row" style="color:var(--muted)"><span>No items yet</span><span>—</span></div>';
+    totalEl.querySelector('span:last-child').textContent='₹500';
+    document.getElementById('depositAmt').textContent='₹500';
+    bookBtn.style.opacity='0.5';bookBtn.style.pointerEvents='none';
+    clearBtn.style.display='none';
+    return;
+  }
+  empty.style.display='none';
+  clearBtn.style.display='block';
+  bookBtn.style.opacity='1';bookBtn.style.pointerEvents='auto';
+  let total=0;
+  let summaryHtml='';
+  cartItems.forEach((item,idx)=>{
+    total+=item.price;
+    summaryHtml+=`<div class="cs-row"><span>${item.name}</span><span>₹${item.price.toLocaleString('en-IN')}</span></div>`;
+    const div=document.createElement('div');
+    div.className='cart-item';
+    div.innerHTML=`<div class="ci-icon">${item.icon}</div><div class="ci-info"><div class="ci-name">${item.name}</div><div class="ci-desc">Includes trial session · AI look preview · Touch-up kit</div></div><div class="ci-price">₹${item.price.toLocaleString('en-IN')}</div><button class="ci-remove" onclick="removeFromCart(${idx})">✕</button>`;
+    container.insertBefore(div,empty);
+  });
+  summaryHtml+=`<div class="cs-row"><span>Platform fee</span><span>₹500</span></div>`;
+  rows.innerHTML=summaryHtml;
+  totalEl.querySelector('span:last-child').textContent='₹'+(total+500).toLocaleString('en-IN');
+}
+
+function applyCoupon(){
+  const code=document.getElementById('couponInput').value.trim().toUpperCase();
+  const msg=document.getElementById('couponMsg');
+  if(code==='BRIDE2025'){msg.style.color='var(--sage-lt)';msg.textContent='✓ Coupon applied! ₹1,000 off your booking.';}
+  else if(code==='SHRINGAR10'){msg.style.color='var(--sage-lt)';msg.textContent='✓ Coupon applied! 10% off on your order.';}
+  else{msg.style.color='var(--rose-lt)';msg.textContent='✗ Invalid coupon code. Try BRIDE2025 or SHRINGAR10.';}
+}
+
+/* ═══ BOOKING FLOW ═══ */
+let bStep=1;
+let selectedPkg='Rose Package — Makeup + Hair + Mehendi';
+let selectedPrice=28000;
+let addons=[];
+
+function showStep(n){
+  [1,2,3,4].forEach(i=>{
+    const b=document.getElementById('bf'+i);
+    const p=document.getElementById('ps'+i);
+    if(b)b.classList.toggle('show',i===n);
+    if(p){p.classList.remove('on','done');if(i===n)p.classList.add('on');else if(i<n)p.classList.add('done');}
+  });
+  bStep=n;
+}
+function nextStep(){if(bStep<4)showStep(bStep+1);}
+function prevStep(){if(bStep>1)showStep(bStep-1);}
+
+function selectSvc(el,name,price){
+  document.querySelectorAll('#bf1 .svc-list:first-of-type .svc-item').forEach(x=>{x.classList.remove('sel');x.querySelector('.svc-dot').textContent='+';});
+  el.classList.add('sel');el.querySelector('.svc-dot').textContent='✓';
+  selectedPkg=name;selectedPrice=price;updateBkSummary();
+}
+function toggleAddon(el,name,price){
+  el.classList.toggle('sel');
+  const dot=el.querySelector('.svc-dot');
+  if(el.classList.contains('sel')){
+    dot.textContent='✓';
+    if(!addons.find(a=>a.name===name))addons.push({name,price});
+  } else {
+    dot.textContent='+';
+    addons=addons.filter(a=>a.name!==name);
+  }
+  updateBkSummary();
+}
+function updateBkSummary(){
+  const rows=document.getElementById('bkSummaryRows');
+  let html=`<div class="sum-row"><span>${selectedPkg}</span><span>₹${selectedPrice.toLocaleString('en-IN')}</span></div>`;
+  let total=selectedPrice;
+  addons.forEach(a=>{html+=`<div class="sum-row"><span>${a.name}</span><span>₹${a.price.toLocaleString('en-IN')}</span></div>`;total+=a.price;});
+  html+=`<div class="sum-row"><span>Platform fee</span><span>₹500</span></div>`;
+  html+=`<div class="sum-row sum-total"><span>Total</span><span>₹${(total+500).toLocaleString('en-IN')}</span></div>`;
+  html+=`<div class="sum-row sum-dep"><span>🔒 Deposit due now</span><span>₹500</span></div>`;
+  rows.innerHTML=html;
+}
+
+function selSlot(btn){
+  document.querySelectorAll('.slot:not(.off)').forEach(s=>s.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function selPay(el,type){
+  document.querySelectorAll('.pay-opt').forEach(p=>{p.classList.remove('sel');p.querySelector('.pay-dot').textContent='✓';});
+  el.classList.add('sel');
+  document.getElementById('upiInput').classList.toggle('show',type==='upi');
+}
+
+/* ═══ CONFIRM ═══ */
+function confirmBooking(){
+  go('confirm');
+  const ref='SHR-'+new Date().getFullYear()+'-'+Math.floor(1000+Math.random()*9000);
+  document.getElementById('bookingRef').textContent=ref;
+}
+
+/* ═══ BOOK PACKAGE SHORTCUT ═══ */
+function bookPackage(name,price){
+  selectedPkg=name;
+  go('booking');
+  setTimeout(()=>showStep(1),200);
+}
+
+/* ═══ PACKAGE FILTERS ═══ */
+let currentAudience='all';
+let currentMaxPrice=150000;
+
+function filterAudience(audience){
+  currentAudience=audience;
+  document.querySelectorAll('.at').forEach(b=>b.classList.remove('on'));
+  event.target.classList.add('on');
+  applyFilters();
+}
+function filterPrice(val){
+  currentMaxPrice=parseInt(val);
+  const v=document.getElementById('priceVal');
+  v.textContent=val>=150000?'Any':'₹'+parseInt(val).toLocaleString('en-IN');
+  applyFilters();
+}
+function applyFilters(){
+  const cards=document.querySelectorAll('.pkg-card');
+  let visible=0;
+  cards.forEach(c=>{
+    const aud=c.dataset.audience||'';
+    const price=parseInt(c.dataset.price||0);
+    const audMatch=currentAudience==='all'||aud.includes(currentAudience);
+    const priceMatch=price<=currentMaxPrice;
+    const show=audMatch&&priceMatch;
+    c.classList.toggle('hidden',!show);
+    if(show)visible++;
+  });
+  document.getElementById('pkgNoResults').style.display=visible===0?'block':'none';
+}
+function resetFilters(){
+  currentAudience='all';currentMaxPrice=150000;
+  document.getElementById('priceRange').value=150000;
+  document.getElementById('priceVal').textContent='Any';
+  document.querySelectorAll('.at').forEach((b,i)=>{if(i===0)b.classList.add('on');else b.classList.remove('on');});
+  applyFilters();
+}
+
+/* ═══ SORT PACKAGES ═══ */
+function sortPkgs(mode){
+  document.querySelectorAll('.sc').forEach(b=>b.classList.remove('on'));
+  event.target.classList.add('on');
+  const grid=document.getElementById('pkgGrid');
+  const cards=[...grid.querySelectorAll('.pkg-card')];
+  cards.sort((a,b)=>{
+    if(mode==='price-low')return parseInt(a.dataset.price)-parseInt(b.dataset.price);
+    if(mode==='price-high')return parseInt(b.dataset.price)-parseInt(a.dataset.price);
+    if(mode==='popular')return parseInt(a.dataset.popular)-parseInt(b.dataset.popular);
+    return parseInt(a.dataset.popular)-parseInt(b.dataset.popular);
+  });
+  cards.forEach(c=>grid.appendChild(c));
+}
+
+/* ═══ ARTIST FILTER CHIPS ═══ */
+document.querySelectorAll('.fc').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('.fc').forEach(x=>x.classList.remove('on'));
+    c.classList.add('on');
+  });
+});
+
+/* ═══ HERO DEMO — Claude API ═══ */
+async function runDemo(){
+  const input=document.getElementById('demoInput').value.trim();
+  if(!input)return;
+  const btn=document.getElementById('demoBtn');
+  const result=document.getElementById('demoResult');
+  btn.innerHTML='<span class="spinner"></span> Designing…';btn.disabled=true;
+  result.classList.add('show');result.innerHTML='<span class="typing-cursor"></span>';
+  const prompt=`You are Shringar AI — Delhi's most celebrated AI bridal stylist with 15 years expertise. A bride describes her wedding. Give a warm, specific, personalised bridal look recommendation in 4–5 sentences. Cover: makeup style (mention HD/airbrush if relevant), lip colour, mehendi style, hair suggestion, and which artist type to book. Be warm, direct, and specific — like an expert friend texting you. End with a gentle nudge to book on Shringar. Bride says: "${input}"`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const text=data.content?.[0]?.text||'Couldn\'t generate a look right now. Please try again!';
+    result.innerHTML='';await typeText(result,text,17);
+  }catch(e){
+    result.innerHTML='✨ <em>For a deep red Banarasi, I\'d go with a rich burgundy smokey eye and a gold shimmer lid to complement the silk — the contrast is breathtaking. A matte raspberry lip keeps the focus on your lehenga without competing. For mehendi, Rajasthani full-hand with a fine Arabic overlay gives you depth and delicacy. Book an airbrush specialist like Nisha Sharma or Ritika from Vasant Kunj for a look that lasts 12+ hours.</em>';
+  }
+  btn.innerHTML='Generate Look ✦';btn.disabled=false;
+}
+async function typeText(el,text,delay=18){
+  el.innerHTML='';
+  for(const ch of text){el.innerHTML+=ch;await new Promise(r=>setTimeout(r,delay));}
+}
+
+/* ═══ CHAT — Claude API ═══ */
+const chatHistory=[];
+async function sendChat(){
+  const inp=document.getElementById('chatInput');
+  const box=document.getElementById('chatBox');
+  const sendBtn=document.getElementById('chatSendBtn');
+  const msg=inp.value.trim();if(!msg)return;
+  inp.value='';sendBtn.disabled=true;
+  appendMsg(box,'user',msg);
+  chatHistory.push({role:'user',content:msg});
+  const thinking=appendMsg(box,'ai','<span class="spinner"></span> Styling…');
+  const sys='You are Shringar AI — Delhi\'s most beloved bridal beauty stylist, powered by AI. You speak warmly, knowledgeably, and with deep understanding of Indian bridal traditions (Punjabi, Bengali, South Indian, Rajasthani, Marathi and more). Give personalised advice on bridal makeup, mehendi, hair, skincare, booking timelines, and artist matching. Mention concrete looks, product types (airbrush, HD), timing, and Delhi artist-style recommendations. Keep replies to 3–5 warm sentences. End with a soft recommendation to explore packages on Shringar.';
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:sys,messages:chatHistory})});
+    const data=await res.json();
+    const reply=data.content?.[0]?.text||'I\'m here to help you look your most beautiful! Tell me about your wedding outfit and skin tone.';
+    chatHistory.push({role:'assistant',content:reply});
+    thinking.innerHTML='';await typeText(thinking,reply,15);
+  }catch(e){
+    thinking.innerHTML='Tell me about your outfit and skin tone and I\'ll craft your perfect look! 🌸';
+  }
+  sendBtn.disabled=false;box.scrollTop=box.scrollHeight;
+}
+function appendMsg(box,type,html){
+  const d=document.createElement('div');
+  d.className='msg msg-'+(type==='user'?'user':'ai');
+  d.innerHTML=html;box.appendChild(d);
+  box.scrollTop=box.scrollHeight;return d;
+}
+function sendQuick(btn){
+  document.getElementById('chatInput').value=btn.textContent.replace(/^[^\s]+\s/,'');sendChat();
+}
+document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat();});
+document.getElementById('demoInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();runDemo();}});
+</script>
+</body>
+</html>
